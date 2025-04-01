@@ -162,7 +162,7 @@ const Navbar = () => {
                       display: { xs: 'none', sm: 'block' },
                     }}
                   >
-                    Toomy Team Electric
+                    Tommy Team Electric
                   </Typography>
                 </Paper>
               </Box>
