@@ -57,7 +57,7 @@ const Navbar = () => {
             style={{ height: '40px', width: 'auto' }}
           />
           <Typography variant="h6" color="primary" sx={{ fontWeight: 600 }}>
-            Toomy Team Electric
+            Tommy Team Electric
           </Typography>
         </Box>
         <IconButton
