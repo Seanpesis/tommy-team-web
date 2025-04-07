@@ -7,6 +7,7 @@ import theme from './theme';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Home from './pages/Home';
+import WhatsAppButton from './components/WhatsAppButton';
 
 // These components will be created later
 import About from './pages/About';
@@ -116,6 +117,7 @@ function App() {
               <KeyboardArrowUpIcon sx={{ fontSize: 28 }} />
             </IconButton>
           </ScrollTop>
+          <WhatsAppButton />
           <Footer />
         </Box>
       </Router>
