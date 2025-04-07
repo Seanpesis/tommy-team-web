@@ -30,7 +30,7 @@ const StyledSvg = styled.svg`
 `;
 
 const WhatsAppButton: React.FC = () => {
-  const phoneNumber = '+97250966366';
+  const phoneNumber = '972509663366';
   const message = 'שלום, הופנתי מהאתר , אני מעוניין/ת במידע נוסף';
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
 
