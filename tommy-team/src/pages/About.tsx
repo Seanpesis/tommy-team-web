@@ -1,18 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Box,
   Container,
   Typography,
   Grid,
-  Card,
-  CardContent,
-  useTheme,
-  Fade,
   Paper,
   List,
   ListItem,
   ListItemIcon,
   ListItemText,
+  useTheme,
+  Fade,
+  Card,
+  CardMedia,
+  CardContent,
+  Dialog,
+  DialogContent,
+  IconButton,
+  useMediaQuery,
 } from '@mui/material';
 import ElectricCarIcon from '@mui/icons-material/ElectricCar';
 import HomeIcon from '@mui/icons-material/Home';
@@ -26,9 +31,24 @@ import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import SupportAgentIcon from '@mui/icons-material/SupportAgent';
 import EmojiObjectsIcon from '@mui/icons-material/EmojiObjects';
 import SecurityIcon from '@mui/icons-material/Security';
+import CloseIcon from '@mui/icons-material/Close';
+import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
+
+// Define the type for gallery items
+interface GalleryItemType {
+  id: number;
+  title: string;
+  description: string;
+  image: string;
+  type: 'image' | 'video';
+  videoUrl?: string;
+}
 
 const About = () => {
   const theme = useTheme();
+  const [selectedItem, setSelectedItem] = useState<GalleryItemType | null>(null);
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   const services = [
     {
@@ -77,6 +97,64 @@ const About = () => {
     'שימוש בציוד המתקדם והאיכותי ביותר',
     'ליווי מלא – מהתכנון ועד הביצוע',
   ];
+
+  const galleryItems: GalleryItemType[] = [
+    {
+      id: 1,
+      title: 'התקנת עמדת טעינה לרכב חשמלי',
+      description: 'התקנת עמדת טעינה חכמה בבית פרטי עם מערכת ניהול חכם',
+      image: '/project6.jpg',
+      type: 'image',
+    },
+    {
+      id: 2,
+      title: 'עמדת טעינה ',
+      description: 'התקנת עמדת טעינה עם שליטה מלאה ובאחריות',
+      image: '/project5.jpg',
+      type: 'image',
+    },
+    {
+      id: 3,
+      title: 'פרויקט מסחרי',
+      description: 'תשתיות חשמל מתקדמות למרכז מסחרי חדש',
+      image: '/project4.jpg',
+      type: 'image',
+    },
+    {
+      id: 4,
+      title: 'אתגר ההתקנה',
+      description: 'בטומי טים אלקטריק אין צורך לאתגר אותנו במיקום ההתקנה, אנו נתקין עבורכם היכן שתבקשו , תסמכו עלינו.',
+      image: '/project1-pic.png',
+      type: 'video',
+      videoUrl: '/project1.mp4',
+    },
+    {
+      id: 5,
+      title: 'דואגים מהגשם?',
+      description:'אין צורך לדאוג מהגשם, אנו מספקים פתרונות מומחיים בכל מקום וזמן',
+      image: '/project2-pic.png',
+      type: 'video',
+      videoUrl: '/project2.mp4',
+    },
+    {
+      id: 6,
+      title: 'עוד לקוח מרוצה',
+      description: 'בשנות ה-80 הבינו מה יהיה נחוץ בעתיד',
+      image: '/project3-pic.png',
+      type: 'video',
+      videoUrl: '/project3.mp4',
+    },
+  ];
+
+  const handleItemClick = (item: GalleryItemType) => {
+    setSelectedItem(item);
+    setDialogOpen(true);
+  };
+
+  const handleCloseDialog = () => {
+    setDialogOpen(false);
+    setSelectedItem(null);
+  };
 
   return (
     <Box sx={{ py: 8, bgcolor: 'background.default' }}>
@@ -310,6 +388,109 @@ const About = () => {
           </Grid>
         </Box>
 
+        {/* Projects Gallery Section */}
+        <Box sx={{ mb: 8 }}>
+          <Typography
+            variant="h3"
+            component="h2"
+            align="center"
+            sx={{
+              mb: 6,
+              fontWeight: 700,
+              color: 'primary.main',
+              position: 'relative',
+              '&::after': {
+                content: '""',
+                position: 'absolute',
+                bottom: -16,
+                left: '50%',
+                transform: 'translateX(-50%)',
+                width: 80,
+                height: 4,
+                bgcolor: 'primary.main',
+                borderRadius: 2,
+              },
+            }}
+          >
+            קצת מהפרויקטים שלנו
+          </Typography>
+          <Grid container spacing={4}>
+            {galleryItems.map((item) => (
+              <Grid item xs={12} sm={6} md={4} key={item.id}>
+                <Fade in timeout={1000}>
+                  <Card
+                    sx={{
+                      height: '100%',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      cursor: 'pointer',
+                      transition: 'transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out',
+                      '&:hover': {
+                        transform: 'translateY(-8px)',
+                        boxShadow: theme.shadows[8],
+                      },
+                    }}
+                    onClick={() => handleItemClick(item)}
+                  >
+                    <Box sx={{ position: 'relative' }}>
+                      <CardMedia
+                        component="img"
+                        height="200"
+                        image={item.image}
+                        alt={item.title}
+                        sx={{ 
+                          objectFit: item.image.includes('project2-pic') || item.image.includes('project3-pic') 
+                            ? 'cover' 
+                            : 'cover',
+                          objectPosition: item.image.includes('project2-pic') || item.image.includes('project3-pic') 
+                            ? 'top center' 
+                            : 'center',
+                          bgcolor: 'black',
+                        }}
+                      />
+                      {item.type === 'video' && (
+                        <Box
+                          sx={{
+                            position: 'absolute',
+                            top: 0,
+                            left: 0,
+                            right: 0,
+                            bottom: 0,
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            bgcolor: 'rgba(0, 0, 0, 0.3)',
+                          }}
+                        >
+                          <PlayCircleOutlineIcon
+                            sx={{
+                              fontSize: 60,
+                              color: 'white',
+                              opacity: 0.8,
+                              transition: 'opacity 0.3s ease-in-out',
+                              '&:hover': {
+                                opacity: 1,
+                              },
+                            }}
+                          />
+                        </Box>
+                      )}
+                    </Box>
+                    <CardContent sx={{ flexGrow: 1 }}>
+                      <Typography gutterBottom variant="h6" component="h3">
+                        {item.title}
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary">
+                        {item.description}
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                </Fade>
+              </Grid>
+            ))}
+          </Grid>
+        </Box>
+
         {/* Mission Section */}
         <Box
           sx={{
@@ -353,6 +534,89 @@ const About = () => {
             </Fade>
           </Container>
         </Box>
+
+        {/* Dialog for displaying images and videos */}
+        <Dialog
+          open={dialogOpen}
+          onClose={handleCloseDialog}
+          maxWidth="lg"
+          fullWidth
+          fullScreen={isMobile}
+        >
+          <DialogContent sx={{ p: 0, position: 'relative' }}>
+            <IconButton
+              aria-label="close"
+              onClick={handleCloseDialog}
+              sx={{
+                position: 'absolute',
+                right: 8,
+                top: 8,
+                color: 'white',
+                bgcolor: 'rgba(0, 0, 0, 0.5)',
+                '&:hover': {
+                  bgcolor: 'rgba(0, 0, 0, 0.7)',
+                },
+                zIndex: 1,
+              }}
+            >
+              <CloseIcon />
+            </IconButton>
+            {selectedItem && (
+              <Box sx={{ width: '100%', height: '100%' }}>
+                {selectedItem.type === 'image' ? (
+                  <Box
+                    component="img"
+                    src={selectedItem.image}
+                    alt={selectedItem.title}
+                    sx={{
+                      width: '100%',
+                      height: 'auto',
+                      maxHeight: '90vh',
+                      objectFit: 'contain',
+                    }}
+                  />
+                ) : (
+                  <Box
+                    sx={{
+                      position: 'relative',
+                      paddingTop: '56.25%', // 16:9 aspect ratio
+                      width: '100%',
+                    }}
+                  >
+                    <video
+                      src={selectedItem.videoUrl}
+                      title={selectedItem.title}
+                      controls
+                      autoPlay
+                      style={{
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'contain',
+                      }}
+                    />
+                  </Box>
+                )}
+                <Box
+                  sx={{
+                    position: 'absolute',
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                    bgcolor: 'rgba(0, 0, 0, 0.7)',
+                    color: 'white',
+                    p: 2,
+                  }}
+                >
+                  <Typography variant="h6">{selectedItem.title}</Typography>
+                  <Typography variant="body2">{selectedItem.description}</Typography>
+                </Box>
+              </Box>
+            )}
+          </DialogContent>
+        </Dialog>
       </Container>
     </Box>
   );
