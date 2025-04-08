@@ -139,7 +139,7 @@ const About = () => {
     {
       id: 6,
       title: 'עוד לקוח מרוצה',
-      description: 'בשנות ה-80 הבינו מה יהיה נחוץ בעתיד',
+      description: 'כבר בשנות ה-80 הבינו מה יהיה נחוץ בעתיד',
       image: '/project3-pic.png',
       type: 'video',
       videoUrl: '/project3.mp4',
