@@ -110,7 +110,7 @@ const About = () => {
       id: 2,
       title: 'עמדת טעינה ',
       description: 'התקנת עמדת טעינה עם שליטה מלאה ובאחריות',
-      image: '/project5.jpg',
+      image: '/project5.png',
       type: 'image',
     },
     {
@@ -439,12 +439,12 @@ const About = () => {
                         image={item.image}
                         alt={item.title}
                         sx={{ 
-                          objectFit: item.image.includes('project2-pic') || item.image.includes('project3-pic') 
-                            ? 'cover' 
-                            : 'cover',
-                          objectPosition: item.image.includes('project2-pic') || item.image.includes('project3-pic') 
+                          objectFit: 'cover',
+                          objectPosition: item.image.includes('project5.png') || item.image.includes('project6.jpg')
                             ? 'top center' 
-                            : 'center',
+                            : item.image.includes('project2-pic') || item.image.includes('project3-pic')
+                              ? 'top center' 
+                              : 'center',
                           bgcolor: 'black',
                         }}
                       />
