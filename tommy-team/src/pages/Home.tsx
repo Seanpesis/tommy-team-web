@@ -9,17 +9,22 @@ import {
   CardContent,
   useTheme,
   Fade,
+  Paper,
+  useMediaQuery,
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import SupportAgentIcon from '@mui/icons-material/SupportAgent';
 import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
 import StarIcon from '@mui/icons-material/Star';
+import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
 
 const Home = () => {
   const theme = useTheme();
   const navigate = useNavigate();
   const [mounted, setMounted] = useState(false);
+  const [videoPlaying, setVideoPlaying] = useState(false);
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   useEffect(() => {
     setMounted(true);
@@ -69,6 +74,10 @@ const Home = () => {
     if (typeof window !== 'undefined') {
       window.scrollTo(0, 0);
     }
+  };
+
+  const handleVideoPlay = () => {
+    setVideoPlaying(true);
   };
 
   return (
@@ -217,6 +226,124 @@ const Home = () => {
               </Grid>
             ))}
           </Grid>
+        </Container>
+      </Box>
+
+      {/* Video Section */}
+      <Box sx={{ py: 8, bgcolor: 'background.paper', position: 'relative', overflow: 'hidden' }}>
+        <Container maxWidth="lg">
+          <Fade in timeout={1000}>
+            <Box sx={{ textAlign: 'center', mb: 6 }}>
+              <Typography
+                variant="h2"
+                component="h2"
+                sx={{
+                  fontWeight: 700,
+                  color: 'primary.main',
+                  position: 'relative',
+                  display: 'inline-block',
+                  '&::after': {
+                    content: '""',
+                    position: 'absolute',
+                    bottom: -16,
+                    left: '50%',
+                    transform: 'translateX(-50%)',
+                    width: 80,
+                    height: 4,
+                    bgcolor: 'primary.main',
+                    borderRadius: 2,
+                  },
+                }}
+              >
+                קצת עלינו
+              </Typography>
+            </Box>
+          </Fade>
+          
+          <Fade in timeout={1000} style={{ transitionDelay: '200ms' }}>
+            <Box
+              sx={{
+                position: 'relative',
+                width: '100%',
+                maxWidth: '800px',
+                margin: '0 auto',
+                borderRadius: 2,
+                overflow: 'hidden',
+                boxShadow: '0 10px 30px rgba(0,0,0,0.2)',
+                transition: 'transform 0.3s ease-in-out',
+                '&:hover': {
+                  transform: 'translateY(-5px)',
+                  boxShadow: '0 15px 40px rgba(0,0,0,0.3)',
+                },
+              }}
+            >
+              <Box
+                sx={{
+                  position: 'relative',
+                  width: '100%',
+                  paddingTop: '56.25%', // 16:9 aspect ratio
+                  bgcolor: 'black',
+                }}
+              >
+                {!videoPlaying ? (
+                  <Box
+                    sx={{
+                      position: 'absolute',
+                      top: 0,
+                      left: 0,
+                      right: 0,
+                      bottom: 0,
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      cursor: 'pointer',
+                      background: 'linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3))',
+                    }}
+                    onClick={handleVideoPlay}
+                  >
+                    <PlayCircleOutlineIcon
+                      sx={{
+                        fontSize: 80,
+                        color: 'white',
+                        opacity: 0.8,
+                        transition: 'all 0.3s ease-in-out',
+                        '&:hover': {
+                          opacity: 1,
+                          transform: 'scale(1.1)',
+                        },
+                      }}
+                    />
+                    <Typography
+                      variant="h6"
+                      sx={{
+                        color: 'white',
+                        mt: 2,
+                        fontWeight: 500,
+                        textShadow: '1px 1px 3px rgba(0,0,0,0.5)',
+                      }}
+                    >
+                      לחצו לצפייה בסרטון
+                    </Typography>
+                  </Box>
+                ) : (
+                  <video
+                    src="/homevid.mp4"
+                    controls
+                    autoPlay
+                    style={{
+                      position: 'absolute',
+                      top: 0,
+                      left: 0,
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'contain',
+                    }}
+                  />
+                )}
+              </Box>
+            </Box>
+          </Fade>
         </Container>
       </Box>
 

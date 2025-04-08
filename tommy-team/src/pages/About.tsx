@@ -144,6 +144,27 @@ const About = () => {
       type: 'video',
       videoUrl: '/project3.mp4',
     },
+    {
+      id: 7,
+      title: 'גם לחובבי הטסלה בינינו',
+      description: 'מבצעים התקנות עמדות טעינה לכל סוגי הרכבים החשמליים',
+      image: '/project7.jpg',
+      type: 'image',
+    },
+    {
+      id: 8,
+      title: 'לא רק עמדות טעינה',
+      description: 'אצלנו מתמחים גם בהתקנות לוחות חשמל ופתרונות מתקדמים לבית ולעסק',
+      image: '/project8.jpg',
+      type: 'image',
+    },
+    {
+      id: 9,
+      title: 'חוששים ממקומות עם אבנים משתלבות?',
+      description: 'תשאירו את זה לנו , אצלנו מתמחים בהקמת עמדות טעינה גם אם מדובר באזור עם אבנים משתלבות',
+      image: '/project9.jpg',
+      type: 'image',
+    },
   ];
 
   const handleItemClick = (item: GalleryItemType) => {
@@ -438,15 +459,17 @@ const About = () => {
                         height="200"
                         image={item.image}
                         alt={item.title}
-                        sx={{ 
+                        sx={{
                           objectFit: 'cover',
-                          objectPosition: item.image.includes('project5.png') || item.image.includes('project6.jpg')
-                            ? 'top center' 
-                            : item.image.includes('project2-pic') || item.image.includes('project3-pic')
-                              ? 'top center' 
-                              : 'center',
-                          bgcolor: 'black',
+                          objectPosition: item.image.includes('project2-pic.png') || item.image.includes('project5.png') || item.image.includes('project6.jpg') || item.image.includes('project9.jpg') ? 'top center' : 
+                                         item.image.includes('project7.jpg') ? 'center 30%' : 'center',
+                          cursor: 'pointer',
+                          transition: 'transform 0.3s ease-in-out',
+                          '&:hover': {
+                            transform: 'scale(1.05)',
+                          },
                         }}
+                        onClick={() => handleItemClick(item)}
                       />
                       {item.type === 'video' && (
                         <Box

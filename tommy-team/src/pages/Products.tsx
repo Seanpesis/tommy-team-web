@@ -706,6 +706,75 @@ const Products = () => {
             {snackbar.message}
           </Alert>
         </Snackbar>
+
+        {/* Important Info Section */}
+        <Box sx={{ mt: 8, mb: 8 }}>
+          <Typography
+            variant="h3"
+            component="h2"
+            align="center"
+            sx={{
+              mb: 6,
+              fontWeight: 700,
+              color: 'primary.main',
+              position: 'relative',
+              '&::after': {
+                content: '""',
+                position: 'absolute',
+                bottom: -16,
+                left: '50%',
+                transform: 'translateX(-50%)',
+                width: 80,
+                height: 4,
+                bgcolor: 'primary.main',
+                borderRadius: 2,
+              },
+            }}
+          >
+            חשוב שתדעו!
+          </Typography>
+          
+          <Fade in timeout={1000}>
+            <Box
+              sx={{
+                position: 'relative',
+                width: '100%',
+                maxWidth: '800px',
+                margin: '0 auto',
+                borderRadius: 2,
+                overflow: 'hidden',
+                boxShadow: '0 10px 30px rgba(0,0,0,0.2)',
+                transition: 'transform 0.3s ease-in-out',
+                '&:hover': {
+                  transform: 'translateY(-5px)',
+                  boxShadow: '0 15px 40px rgba(0,0,0,0.3)',
+                },
+              }}
+            >
+              <Box
+                sx={{
+                  position: 'relative',
+                  width: '100%',
+                  paddingTop: '56.25%', // 16:9 aspect ratio
+                  bgcolor: 'black',
+                }}
+              >
+                <video
+                  src="/info.mp4"
+                  controls
+                  style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'contain',
+                  }}
+                />
+              </Box>
+            </Box>
+          </Fade>
+        </Box>
       </Container>
     </Box>
   );
