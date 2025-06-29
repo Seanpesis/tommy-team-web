@@ -33,7 +33,7 @@ const Home = () => {
   const features = [
     {
       icon: <LocalShippingIcon sx={{ fontSize: 40 }} />,
-      title: 'משלוח מהיר',
+      title: 'משלוחים מהירים',
       description: 'משלוחים מהירים לכל הארץ עם מעקב בזמן אמת',
     },
     {
